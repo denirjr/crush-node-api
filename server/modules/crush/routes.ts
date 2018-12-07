@@ -31,9 +31,14 @@ class CrushRoutes {
         const crush = req.body;
         CrushController
         .create(crush)
-        .then(crush => sendResponse(res, httpStatus.CREATED, "Crush criado com amor!"))
-        .catch(err => console.error.bind(console, 'Erro: '+ err));
+          .then(() => {
+            res.json(crush);
+          })
+          .catch(() => {
+            res.status(400).send("unable to save to database");
+          });
       }
+       
 
     update(req, res) {
         const id = {_id: req.params.id}
